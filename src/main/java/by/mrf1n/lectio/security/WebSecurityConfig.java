@@ -14,10 +14,13 @@ import javax.sql.DataSource;
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
-    private final DataSource dataSource;
 
-    public WebSecurityConfig(DataSource dataSource) {
+    private final DataSource dataSource;
+    private final MyBasicAuthenticationEntryPoint authenticationEntryPoint;
+
+    public WebSecurityConfig(DataSource dataSource, MyBasicAuthenticationEntryPoint authenticationEntryPoint) {
         this.dataSource = dataSource;
+        this.authenticationEntryPoint = authenticationEntryPoint;
     }
 
     @Override
@@ -25,15 +28,18 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .csrf().disable()
                 .authorizeRequests()
-                .antMatchers("/", "/lectio/auth/reg").permitAll()
+                .antMatchers("/", "/auth/reg").permitAll()
                 .anyRequest().authenticated()
                 .and()
                 .formLogin()
-                .loginPage("/lectio/auth/login")
+                //.loginPage("/auth/login")
                 .permitAll()
                 .and()
                 .logout()
-                .permitAll();
+                .permitAll()
+                .and()
+                .httpBasic()
+                .authenticationEntryPoint(authenticationEntryPoint);
     }
 
     @Override
@@ -41,8 +47,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         auth.jdbcAuthentication()
                 .dataSource(dataSource)
                 .passwordEncoder(NoOpPasswordEncoder.getInstance())
-                .usersByUsernameQuery("select login, password, active from usr where login=?")
-                .authoritiesByUsernameQuery("select u.login, u.roles from usr inner join user_role ur on u.id = ur.user_id where u.login=?");
-        //super.configure(auth);
+                .usersByUsernameQuery("select login, password, active from users where login=?")
+                .authoritiesByUsernameQuery("select u.login, ur.roles from users u inner join user_role ur on u.id = ur.user_id where u.login=?");
     }
 }
