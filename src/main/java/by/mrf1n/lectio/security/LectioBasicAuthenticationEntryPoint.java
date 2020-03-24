@@ -10,7 +10,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 
 @Component
-public class MyBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
+public class LectioBasicAuthenticationEntryPoint extends BasicAuthenticationEntryPoint {
 
     @Override
     public void commence(
