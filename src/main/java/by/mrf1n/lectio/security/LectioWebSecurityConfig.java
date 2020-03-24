@@ -18,16 +18,13 @@ import javax.sql.DataSource;
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class LectioWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
-    private final DataSource dataSource;
     private final LectioBasicAuthenticationEntryPoint authenticationEntryPoint;
     private final UserDetailsService userDetailsService;
     private final BCryptPasswordEncoder passwordEncoder;
 
-    public LectioWebSecurityConfig(DataSource dataSource,
-                                   LectioBasicAuthenticationEntryPoint authenticationEntryPoint,
+    public LectioWebSecurityConfig(LectioBasicAuthenticationEntryPoint authenticationEntryPoint,
                                    @Qualifier("lectioUserDetailsService") UserDetailsService userDetailsService,
                                    BCryptPasswordEncoder passwordEncoder) {
-        this.dataSource = dataSource;
         this.authenticationEntryPoint = authenticationEntryPoint;
         this.userDetailsService = userDetailsService;
         this.passwordEncoder = passwordEncoder;
@@ -35,11 +32,6 @@ public class LectioWebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
-//        auth.jdbcAuthentication()
-//                .dataSource(dataSource)
-//                .passwordEncoder(NoOpPasswordEncoder.getInstance())
-//                .usersByUsernameQuery("select login, password, active from users where login=?")
-//                .authoritiesByUsernameQuery("select u.login, ur.roles from users u inner join user_role ur on u.id = ur.user_id where u.login=?");
         auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
     }
 
