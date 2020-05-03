@@ -1,0 +1,26 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+.top {
+    background-color: #757698;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.top .logo {
+    padding: 5px 10px;
+}
+
+.top .logo_name {
+    font-size: 35px;
+    color: #000000;
+    font-weight: 700;
+    vertical-align: bottom;
+}
+
+.top .logo_img {
+    height: 50px;
+}

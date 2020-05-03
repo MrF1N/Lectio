@@ -39,7 +39,7 @@ public class LectioWebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/", "/auth/reg").permitAll()
+                .antMatchers("/", "/auth/reg", "/resources/**").permitAll()
                 .anyRequest().authenticated();
         http.formLogin().permitAll()
                 .and()
