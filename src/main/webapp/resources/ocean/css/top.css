@@ -3,8 +3,12 @@ body {
     margin: 0;
 }
 
+input {
+    font-family: 'Montserrat', sans-serif;
+}
+
 .top {
-    background-color: #757698;
+    background-color: #7074ff;
     width: 100%;
     display: flex;
     justify-content: space-between;
@@ -12,6 +16,7 @@ body {
 
 .top .logo {
     padding: 5px 10px;
+    text-decoration: none;
 }
 
 .top .logo_name {

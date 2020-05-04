@@ -20,7 +20,7 @@
             <h1>Образовательный сервис Lectio</h1>
             <span>Чтобы начать обучаться или преподавать, пожалуйста войдите в систему</span>
             <div class="buttons">
-                <a class="button" href="#"><spring:message code="index.enter"/></a>
+                <a class="button" href="${pageContext.request.contextPath}/auth/login"><spring:message code="index.enter"/></a>
             </div>
     </div>
 </div>

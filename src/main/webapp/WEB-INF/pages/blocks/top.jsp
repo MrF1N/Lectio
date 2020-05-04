@@ -5,13 +5,13 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat&display=swap" rel="stylesheet">
 
 <div class="top">
-    <div class="logo">
+    <a class="logo" href="${pageContext.request.contextPath}/">
         <img class="logo_img" src="${theme}/img/logo_transparent.png" alt=""/>
         <span class="logo_name">ectio</span>
-    </div>
+    </a>
     <div class="buttons top_buttons">
-        <a class="button top_button" href="#"><spring:message code="top.teach"/></a>
-        <a class="button top_button" href="#"><spring:message code="top.study"/></a>
+        <a class="button top_button" href="${pageContext.request.contextPath}/create/profile"><spring:message code="top.teach"/></a>
+        <a class="button top_button" href="${pageContext.request.contextPath}/study/profile"><spring:message code="top.study"/></a>
     </div>
 </div>
 

@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import javax.sql.DataSource;
 
@@ -39,11 +40,22 @@ public class LectioWebSecurityConfig extends WebSecurityConfigurerAdapter {
     protected void configure(HttpSecurity http) throws Exception {
         http.csrf().disable();
         http.authorizeRequests()
-                .antMatchers("/", "/auth/reg", "/resources/**").permitAll()
+                .antMatchers(
+                        "/",
+                        "/auth/**",
+                        "/resources/**").permitAll()
                 .anyRequest().authenticated();
-        http.formLogin().permitAll()
+        http.formLogin()
+                    .loginPage("/auth/login")
+                    .loginProcessingUrl("/spring_security_check")
+                    .usernameParameter("username")
+                    .passwordParameter("password")
+                    .permitAll()
                 .and()
-                .logout().permitAll();
+                    .logout()
+                    .permitAll()
+                    .logoutSuccessUrl("/login?logout")
+                    .invalidateHttpSession(true);
         http.httpBasic().authenticationEntryPoint(authenticationEntryPoint);
     }
 }
