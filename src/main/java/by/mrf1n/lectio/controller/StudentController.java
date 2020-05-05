@@ -12,9 +12,4 @@ import java.util.Collections;
 @RequestMapping(path = "/study")
 public class StudentController {
 
-    @GetMapping("/profile")
-    public String profilePage(Model model) {
-        model.addAttribute("roles", Collections.singletonList(Role.STUDENT));
-        return "profile";
-    }
 }

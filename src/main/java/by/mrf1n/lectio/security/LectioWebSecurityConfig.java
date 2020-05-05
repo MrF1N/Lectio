@@ -54,7 +54,7 @@ public class LectioWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .and()
                     .logout()
                     .permitAll()
-                    .logoutSuccessUrl("/login?logout")
+//                    .logoutSuccessUrl("/login?logout")
                     .invalidateHttpSession(true);
         http.httpBasic().authenticationEntryPoint(authenticationEntryPoint);
     }

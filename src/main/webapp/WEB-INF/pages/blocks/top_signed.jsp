@@ -11,6 +11,7 @@
         <img class="logo_img" src="${theme}/img/logo_transparent.png" alt=""/>
         <span class="logo_name">ectio</span>
     </a>
+    <span>${param.roles}</span>
     <c:if test="${fn:contains(param.roles, 'STUDENT')}">
         <div class="buttons top_buttons">
             <a class="button top_button" href="${pageContext.request.contextPath}/create/profile"><spring:message code="top.teach"/></a>

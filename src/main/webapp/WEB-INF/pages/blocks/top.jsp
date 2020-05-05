@@ -10,8 +10,8 @@
         <span class="logo_name">ectio</span>
     </a>
     <div class="buttons top_buttons">
-        <a class="button top_button" href="${pageContext.request.contextPath}/create/profile"><spring:message code="top.teach"/></a>
-        <a class="button top_button" href="${pageContext.request.contextPath}/study/profile"><spring:message code="top.study"/></a>
+        <a class="button top_button" href="${pageContext.request.contextPath}/user/profile"><spring:message code="top.teach"/></a>
+        <a class="button top_button" href="${pageContext.request.contextPath}/user/profile"><spring:message code="top.study"/></a>
     </div>
 </div>
 
