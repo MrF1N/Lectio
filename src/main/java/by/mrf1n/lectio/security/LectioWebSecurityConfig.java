@@ -9,9 +9,6 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
-
-import javax.sql.DataSource;
 
 
 @Configuration
@@ -44,6 +41,8 @@ public class LectioWebSecurityConfig extends WebSecurityConfigurerAdapter {
                         "/",
                         "/auth/**",
                         "/resources/**").permitAll()
+                .antMatchers(
+                        "/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();
         http.formLogin()
                     .loginPage("/auth/login")

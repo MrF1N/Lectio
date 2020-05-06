@@ -5,16 +5,16 @@
   Time: 18:01
   To change this template use File | Settings | File Templates.
 --%>
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
-<spring:url value="/resources" var="theme"/>
 <html>
 <head>
     <title>Lectio - обучение online</title>
-    <link rel="stylesheet" type="text/css" href="${theme}/css/main.css"/>
 </head>
 <body>
-<jsp:include page="blocks/top.jsp"/>
+<jsp:include page="blocks/top.jsp">
+    <jsp:param name="roles" value="${roles}"/>
+</jsp:include>
 <div class="join_block">
     <div>
             <h1>Образовательный сервис Lectio</h1>

@@ -1,3 +1,85 @@
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+}
+
+input {
+    font-family: 'Montserrat', sans-serif;
+}
+
+/* Top */
+.top {
+    background-color: #7074ff;
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+}
+
+.top .logo {
+    padding: 5px 10px;
+    margin: auto 0;
+    text-decoration: none;
+    vertical-align: middle;
+}
+
+.top .logo_name {
+    font-size: 35px;
+    color: #000000;
+    font-weight: 700;
+    vertical-align: bottom;
+}
+
+.top .logo_img {
+    height: 50px;
+}
+
+.circle.user {
+    width: 50px;
+    height: 50px;
+    background: #9300a5;
+    border-radius: 50%
+}
+
+.user_container.signed {
+    display: flex;
+    justify-content: space-between;
+    right: 0;
+}
+
+.user_container.signed .top_button.exit {
+    max-height: 20px;
+    margin: auto 10px;
+    background-color: #0e0e28;
+    border-color: #0e0e28;
+    color: #7074ff;
+}
+
+.user_container.signed a.user.signed {
+    margin: auto 10px;
+    display: flex;
+    float: left;
+    vertical-align: middle;
+    text-decoration: none;
+}
+
+.user_container.signed a.user.signed span {
+    margin: auto 0 auto 15px;
+    vertical-align: middle;
+    font-weight: 900;
+    color: black;
+}
+
+.button.top_button {
+    margin: 10px;
+}
+
+.buttons.top_buttons {
+    margin: auto 10px;
+    vertical-align: middle;
+}
+
+/* Body */
+
 .button {
     border: 3px solid #81a6f0;
     display: inline-block;
@@ -63,4 +145,18 @@
 
 .login_container .button {
     font-size: 20px;
+}
+
+/* Bottom */
+.bottom {
+    text-align: center;
+    width: 100%;
+    background-color: #7074ff61;
+    display: block;
+    line-height: 50px;
+}
+
+.bottom .bottom_info {
+    display: inline-block;
+    vertical-align: middle;
 }

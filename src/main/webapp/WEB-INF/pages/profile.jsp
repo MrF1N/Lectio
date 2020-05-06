@@ -13,22 +13,22 @@
     <title>Title</title>
 </head>
 <body>
-<jsp:include page="blocks/top_signed.jsp">
+<jsp:include page="blocks/top.jsp">
     <jsp:param name="roles" value="${roles}"/>
 </jsp:include>
-<div class="container">
-    <h1>Devcolibri.com</h1>
-    <p class="lead">
-        Devcolibri - это сервис предоставляющий всем желающим возможность обучаться программированию.
-    </p>
-    <sec:authorize access="!isAuthenticated()">
-        <p><a class="btn btn-lg btn-success" href="<c:url value="/auth/login" />" role="button">Войти</a></p>
-    </sec:authorize>
-    <sec:authorize access="isAuthenticated()">
-        <p>Ваш логин: <sec:authentication property="principal.username"/></p>
-        <p><a class="btn btn-lg btn-danger" href="<c:url value="/auth/logout" />" role="button">Выйти</a></p>
-
-    </sec:authorize>
+<div class="container user">
+    <div>
+        <h1>Личный кабинет</h1>
+        <p class="lead">
+            Личная информация и статистика
+        </p>
+        <h2>Краткая информация</h2>
+        <sec:authorize access="isAuthenticated()">
+            <p>Логин: ${login}</p>
+        </sec:authorize>
+        <h2>Оконченные курсы</h2>
+        <h2>Сертификаты</h2>
+    </div>
 </div>
 <jsp:include page="blocks/bottom.jsp"/>
 </body>

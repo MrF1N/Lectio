@@ -7,6 +7,8 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 @Service("lectioUserDetailsService")
 public class LectioUserDetailsService implements UserDetailsService {
     private final UserRepository userRepository;
@@ -17,11 +19,11 @@ public class LectioUserDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String login) throws UsernameNotFoundException {
-        User user = userRepository.findByLogin(login);
+        Optional<User> user = userRepository.findByLogin(login);
         LectioUserDetails userDetails;
-        if (user != null) {
+        if (user.isPresent()) {
             userDetails = new LectioUserDetails();
-            userDetails.setUser(user);
+            userDetails.setUser(user.get());
         } else {
             throw new UsernameNotFoundException("User not exist with name : " + login);
         }

@@ -9,11 +9,9 @@
 --%>
 
 <spring:url value="/spring_security_check" var="loginUrl"/>
-<spring:url value="/resources" var="theme"/>
 <html>
 <head>
     <title>Вход</title>
-    <link rel="stylesheet" type="text/css" href="${theme}/css/main.css"/>
 </head>
 <body>
 <jsp:include page="blocks/top.jsp"/>
