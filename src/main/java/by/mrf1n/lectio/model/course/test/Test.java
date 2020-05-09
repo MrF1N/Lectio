@@ -1,7 +1,10 @@
 package by.mrf1n.lectio.model.course.test;
 
 import by.mrf1n.lectio.model.course.Course;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -18,6 +21,9 @@ import java.util.Set;
 @Entity
 @Table(name = "tests")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Test {
     private static final long serialVersionUID = 1L;
 

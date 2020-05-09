@@ -13,6 +13,8 @@ input {
     width: 100%;
     display: flex;
     justify-content: space-between;
+    height: 6.6%;
+    min-height: 64px;
 }
 
 .top .logo {
@@ -33,11 +35,21 @@ input {
     height: 50px;
 }
 
+.circle {
+    margin: auto;
+    border-radius: 50%;
+}
+
 .circle.user {
     width: 50px;
     height: 50px;
     background: #9300a5;
-    border-radius: 50%
+}
+
+.circle.course {
+    width: 80px;
+    height: 80px;
+    background: #2ca595;
 }
 
 .user_container.signed {
@@ -54,7 +66,7 @@ input {
     color: #7074ff;
 }
 
-.user_container.signed a.user.signed {
+a.user {
     margin: auto 10px;
     display: flex;
     float: left;
@@ -62,11 +74,19 @@ input {
     text-decoration: none;
 }
 
-.user_container.signed a.user.signed span {
+a.user span {
     margin: auto 0 auto 15px;
     vertical-align: middle;
     font-weight: 900;
     color: black;
+}
+
+a.user .circle.user span {
+    display: block;
+    line-height: 50px;
+    margin: auto;
+    vertical-align: middle;
+    font-size: 18px;
 }
 
 .button.top_button {
@@ -97,9 +117,18 @@ input {
     align-items: center;
     background: url("../img/triangle_two.svg") no-repeat;
     background-size: 70%;
-    height: 88%;
+    height: 87.4%;
+    min-height: 300px;
     text-align: right;
     margin: 0;
+}
+
+.main.join_block,
+.main.login_container,
+.main.container {
+    margin: 0 auto;
+    height: calc(100vh - 6.6% - 6%);
+    min-height: calc(100vh - 6.6% - 6%);
 }
 
 .join_block > div {
@@ -147,16 +176,38 @@ input {
     font-size: 20px;
 }
 
+.full_height {
+    height: auto;
+}
+
+.center_container {
+    display: block;
+    text-align: center;
+    vertical-align: middle;
+    margin: auto;
+}
+
+.error {
+    color: #ff0000;
+    font-weight: bold;
+}
+
+.margin_zero {
+    margin: 0;
+}
+
 /* Bottom */
 .bottom {
     text-align: center;
     width: 100%;
     background-color: #7074ff61;
     display: block;
-    line-height: 50px;
+    height: 6%;
+    min-height: 50px;
 }
 
 .bottom .bottom_info {
-    display: inline-block;
-    vertical-align: middle;
+    display: inline-flex;
+    height: 100%;
+    align-items: center;
 }

@@ -13,12 +13,12 @@
     <title>Title</title>
 </head>
 <body>
-<jsp:include page="blocks/top.jsp">
+<jsp:include page="../blocks/top.jsp">
     <jsp:param name="roles" value="${roles}"/>
 </jsp:include>
-<div class="container user">
-    <div>
-        <h1>Личный кабинет</h1>
+<div class="main container user">
+    <div class="full_height center_container">
+        <h1 class="margin_zero">Личный кабинет</h1>
         <p class="lead">
             Личная информация и статистика
         </p>
@@ -30,6 +30,6 @@
         <h2>Сертификаты</h2>
     </div>
 </div>
-<jsp:include page="blocks/bottom.jsp"/>
+<jsp:include page="../blocks/bottom.jsp"/>
 </body>
 </html>

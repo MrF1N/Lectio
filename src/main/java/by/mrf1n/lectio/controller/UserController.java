@@ -42,11 +42,11 @@ public class UserController {
                     && (CollectionUtils.containsAny(authUser.get().getRoles(), Role.getPermittedViewAllUsers())
                     || Objects.equals(authUser.get().getId(), user.get().getId()))) {
                 lectioUiService.fillUserParamsModelByLogin(userId, authUser.get().getLogin(), model);
-                return "profile";
+                return "user/profile";
             }
         }
 
-        return "redirect:/";
+        return "redirect:/error";
     }
 
     @GetMapping("/courses")
@@ -68,6 +68,6 @@ public class UserController {
 ////        }
 //
 //        return "redirect:/";
-        return "courses";
+        return "courses/courses";
     }
 }

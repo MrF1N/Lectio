@@ -18,7 +18,7 @@ public class AdminController {
 
     @GetMapping("/manage")
     public String profilePage(Authentication authentication) {
-        return "manage_system";
+        return "admin/manage_system";
 
     }
 }

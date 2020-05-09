@@ -33,7 +33,7 @@ public class AuthController {
 
     @GetMapping("/login")
     public String loginPage(Model model) {
-        return "login";
+        return "user/login";
     }
 
     @GetMapping(value = "/logout")
@@ -42,7 +42,7 @@ public class AuthController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "redirect:/login";
+        return "redirect:/";
     }
 
     @GetMapping(value = "/check")

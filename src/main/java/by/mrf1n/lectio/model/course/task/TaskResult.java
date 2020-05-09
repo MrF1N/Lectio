@@ -2,7 +2,10 @@ package by.mrf1n.lectio.model.course.task;
 
 import by.mrf1n.lectio.model.User;
 import by.mrf1n.lectio.model.course.CourseResult;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.CollectionTable;
@@ -23,6 +26,9 @@ import java.util.List;
 @Entity
 @Table(name = "task_results")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class TaskResult {
     private static final long serialVersionUID = 1L;
 

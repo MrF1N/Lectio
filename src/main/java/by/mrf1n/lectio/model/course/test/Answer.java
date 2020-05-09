@@ -1,6 +1,9 @@
 package by.mrf1n.lectio.model.course.test;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -15,6 +18,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "answers")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Answer {
     private static final long serialVersionUID = 1L;
 

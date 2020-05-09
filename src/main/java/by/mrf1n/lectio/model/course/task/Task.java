@@ -1,7 +1,10 @@
 package by.mrf1n.lectio.model.course.task;
 
 import by.mrf1n.lectio.model.course.Course;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -20,6 +23,9 @@ import java.util.List;
 @Entity
 @Table(name = "tasks")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Task {
     private static final long serialVersionUID = 1L;
 

@@ -1,6 +1,9 @@
 package by.mrf1n.lectio.model;
 
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
@@ -19,6 +22,9 @@ import java.util.Set;
 @Entity
 @Data
 @Table(name = "users")
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class User implements Serializable {
     private static final long serialVersionUID = 1L;
 
@@ -36,8 +42,4 @@ public class User implements Serializable {
     @CollectionTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"))
     @Enumerated(EnumType.STRING)
     private Set<Role> roles;
-
-    public User() {
-
-    }
 }

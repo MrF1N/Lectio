@@ -14,8 +14,8 @@
     <title>Вход</title>
 </head>
 <body>
-<jsp:include page="blocks/top.jsp"/>
-<div class="login_container">
+<jsp:include page="../blocks/top.jsp"/>
+<div class="main login_container">
     <form action="${loginUrl}" method="post">
         <div class="controls">
             <h1 class="login_heading">Вход</h1>
@@ -29,6 +29,6 @@
         </div>
     </form>
 </div>
-<jsp:include page="blocks/bottom.jsp"/>
+<jsp:include page="../blocks/bottom.jsp"/>
 </body>
 </html>

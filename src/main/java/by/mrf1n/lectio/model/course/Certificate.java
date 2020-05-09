@@ -1,7 +1,10 @@
 package by.mrf1n.lectio.model.course;
 
 import by.mrf1n.lectio.model.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -17,6 +20,9 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "certificates")
 @Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Certificate {
     private static final long serialVersionUID = 1L;
 
