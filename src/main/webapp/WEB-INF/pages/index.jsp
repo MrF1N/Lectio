@@ -12,19 +12,22 @@
 <head>
     <title>Lectio - обучение online</title>
 </head>
-<body style="height: 100%">
+<body class="d-flex flex-column h-100 text-right">
 <jsp:include page="blocks/top.jsp">
     <jsp:param name="roles" value="${roles}"/>
 </jsp:include>
-<div class="main join_block">
-    <div>
+<div class="bg">
+    <div class="container h-100 btn-group-vertical">
+        <div>
             <h1>Образовательный сервис Lectio</h1>
-        <sec:authorize access="!isAuthenticated()">
-            <span>Чтобы начать обучаться или преподавать, пожалуйста войдите в систему</span>
-            <div class="buttons">
-                <a class="button" href="${pageContext.request.contextPath}/auth/login"><spring:message code="index.enter"/></a>
-            </div>
-        </sec:authorize>
+            <sec:authorize access="!isAuthenticated()">
+                <span>Чтобы начать обучаться или преподавать, пожалуйста войдите в систему</span>
+                <div>
+                    <a class="btn btn-outline-primary"
+                       href="${pageContext.request.contextPath}/auth/login"><spring:message code="index.enter"/></a>
+                </div>
+            </sec:authorize>
+        </div>
     </div>
 </div>
 <jsp:include page="blocks/bottom.jsp"/>
