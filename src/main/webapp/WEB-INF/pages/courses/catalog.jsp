@@ -8,9 +8,21 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Title</title>
+    <title>Каталог курсов</title>
 </head>
 <body>
+<jsp:include page="../blocks/top.jsp">
+    <jsp:param name="roles" value="${roles}"/>
+</jsp:include>
+<div class="main container">
+    <div class="search">
+        <form action="/action_page.php">
+            <input type="text" placeholder="Search.." name="search">
+            <button type="submit"><i class="fa fa-search"></i></button>
+        </form>
+    </div>
 
+</div>
+<jsp:include page="../blocks/bottom.jsp"/>
 </body>
 </html>

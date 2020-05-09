@@ -17,7 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import java.util.Collections;
 import java.util.Optional;
+import java.util.Set;
 
 @Controller
 @RequestMapping(path = "/courses")
@@ -60,10 +62,14 @@ public class CoursesController {
         lectioUiService.fillRolesModelByLogin(authentication.getName(), model);
         if (inputValidationService.validateCourseName(course, result)) return "courses/new";
         Optional<User> user = userRepository.findByLogin(authentication.getName());
-        user.ifPresent(course::setCreator);
-        user.ifPresent(course.getTeachers()::add);
-        Course save = courseRepository.save(course);
-        return "redirect:/courses/" + save.getId();
+        if (user.isPresent()) {
+            user.ifPresent(course::setCreator);
+            Set<User> users = Collections.singleton(user.get());
+            course.setTeachers(users);
+            Course save = courseRepository.save(course);
+            return "redirect:/courses/" + save.getId();
+        }
+        return "courses/new";
     }
 
     @GetMapping("/{id}")
@@ -87,6 +93,7 @@ public class CoursesController {
         Optional<Course> course = courseRepository.findById(id);
         if (course.isPresent()) {
             model.addAttribute("course", course.get());
+            model.addAttribute("course_page", "plan");
             return "courses/course";
         }
         return "redirect:/error";

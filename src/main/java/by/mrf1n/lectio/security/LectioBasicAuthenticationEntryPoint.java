@@ -24,7 +24,7 @@ public class LectioBasicAuthenticationEntryPoint extends BasicAuthenticationEntr
 
     @Override
     public void afterPropertiesSet() {
-        setRealmName("Baeldung");
+        setRealmName("Sergei");
         super.afterPropertiesSet();
     }
 }
