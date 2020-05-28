@@ -17,13 +17,13 @@
     <jsp:param name="roles" value="${roles}"/>
 </jsp:include>
 <div class="bg">
-    <div class="container h-100 btn-group-vertical">
-        <div>
+    <div class="container h-100 d-flex mr-4">
+        <div class="m-auto align-middle">
             <h1>Образовательный сервис Lectio</h1>
             <sec:authorize access="!isAuthenticated()">
                 <span>Чтобы начать обучаться или преподавать, пожалуйста войдите в систему</span>
                 <div>
-                    <a class="btn btn-outline-primary"
+                    <a class="btn btn-outline-primary mt-3"
                        href="${pageContext.request.contextPath}/auth/login"><spring:message code="index.enter"/></a>
                 </div>
             </sec:authorize>

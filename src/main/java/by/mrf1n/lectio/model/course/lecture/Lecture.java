@@ -36,7 +36,7 @@ public class Lecture {
     private Long sequenceNumber;
     private String description;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "teacher_id", nullable = false)
+    @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
     @Enumerated(EnumType.STRING)

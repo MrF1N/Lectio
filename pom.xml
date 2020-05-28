@@ -119,6 +119,19 @@
             <version>3.5.1</version>
         </dependency>
         <!--/Bootstrap-->
+        <!--JUnit-->
+        <!--        <dependency>-->
+        <!--            <groupId>org.junit.jupiter</groupId>-->
+        <!--            <artifactId>junit-jupiter-engine</artifactId>-->
+        <!--            <version>5.1.0</version>-->
+        <!--            <scope>test</scope>-->
+        <!--        </dependency>-->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <!--/JUnit-->
     </dependencies>
 
     <build>

@@ -16,7 +16,7 @@
 <body class="d-flex flex-column text-center">
 <jsp:include page="../blocks/top.jsp"/>
 <div class="container m-auto">
-    <form action="${loginUrl}" method="post" class="form-signing">
+    <form action="${loginUrl}" method="post" class="form-signing m-auto">
         <div class="controls">
             <h1 class="mb-3 font-weight-normal">Вход</h1>
             <div class="form-group input-group-lg">

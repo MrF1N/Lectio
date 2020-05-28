@@ -6,6 +6,7 @@ import by.mrf1n.lectio.repository.UserRepository;
 import by.mrf1n.lectio.repository.coursse.CourseRepository;
 import by.mrf1n.lectio.service.LectioUiService;
 import by.mrf1n.lectio.service.validation.LectioInputValidationService;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import java.util.Collections;
 import java.util.Optional;
@@ -42,8 +44,16 @@ public class CoursesController {
     }
 
     @GetMapping("/catalog")
-    public String getCatalogPage(Model model, Authentication authentication) {
+    public String getCatalogPage(Model model,
+                                 Authentication authentication,
+                                 @RequestParam(required = false) String filter) {
         lectioUiService.fillRolesModelByLogin(authentication.getName(), model);
+        if (Strings.isEmpty(filter)) {
+            model.addAttribute("courses", courseRepository.findAll());
+        } else {
+            model.addAttribute("courses", courseRepository.findCoursesLikeName(filter));
+            model.addAttribute("filter", filter);
+        }
         return "courses/catalog";
     }
 
@@ -95,6 +105,19 @@ public class CoursesController {
             model.addAttribute("course", course.get());
             model.addAttribute("course_page", "plan");
             return "courses/course";
+        }
+        return "redirect:/error";
+    }
+
+    @GetMapping("/{id}/preview")
+    public String getCoursePreviewPage(Model model,
+                                       @PathVariable Long id,
+                                       Authentication authentication) {
+        lectioUiService.fillRolesModelByLogin(authentication.getName(), model);
+        Optional<Course> course = courseRepository.findById(id);
+        if (course.isPresent()) {
+            model.addAttribute("course", course.get());
+            return "courses/preview";
         }
         return "redirect:/error";
     }
