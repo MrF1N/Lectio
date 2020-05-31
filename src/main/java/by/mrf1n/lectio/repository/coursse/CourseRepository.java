@@ -1,5 +1,6 @@
 package by.mrf1n.lectio.repository.coursse;
 
+import by.mrf1n.lectio.model.User;
 import by.mrf1n.lectio.model.course.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -13,4 +14,6 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
 
     @Query("select course from Course course where lower(course.name) like lower(concat('%', :name,'%'))")
     List<Course> findCoursesLikeName(@Param("name") String name);
+
+    List<Course> findAllByStudents(User student);
 }

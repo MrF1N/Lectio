@@ -26,6 +26,7 @@ public class LectioUiService {
     public Model fillRolesModelByLogin(String currentLogin, Model model) {
         Optional<User> user = userRepository.findByLogin(currentLogin);
         user.ifPresent(value -> model.addAttribute("roles", value.getRoles()));
+        user.ifPresent(value -> model.addAttribute("user", value));
         return model;
     }
 

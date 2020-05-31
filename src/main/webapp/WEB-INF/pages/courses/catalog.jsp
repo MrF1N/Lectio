@@ -1,4 +1,5 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%--
   Created by IntelliJ IDEA.
   User: Grey
@@ -24,21 +25,6 @@
     </form>
 </div>
 <div class="container">
-
-    <%--    <div class="row row-cols-md-1">--%>
-    <%--        <div class="col m-4">--%>
-    <%--            <div class="card" style="width: 18rem;">--%>
-    <%--                <div class="card-header">--%>
-    <%--                    Featured--%>
-    <%--                </div>--%>
-    <%--                <ul class="list-group list-group-flush">--%>
-    <%--                    <li class="list-group-item">Cras justo odio</li>--%>
-    <%--                    <li class="list-group-item">Dapibus ac facilisis in</li>--%>
-    <%--                    <li class="list-group-item">Vestibulum at eros</li>--%>
-    <%--                </ul>--%>
-    <%--            </div>--%>
-    <%--        </div>--%>
-    <%--    </div>--%>
     <div class="row mt-4 d-flex align-items-stretch row-cols-1 row-cols-md-3">
         <c:forEach var="course" items="${courses}">
             <div class="col mb-4">
@@ -50,8 +36,16 @@
                         <span class="card-text">${course.description}</span>
                     </div>
                     <div class="card-footer bg-transparent">
-                        <a href="${pageContext.request.contextPath}/courses/${course.id}/preview"
-                           class="btn btn-primary">Изучить</a>
+                        <c:choose>
+                            <c:when test="${fn:contains(course.students, user)}">
+                                <a href="${pageContext.request.contextPath}/courses/${course.id}"
+                                   class="btn btn-primary">Продолжить обучение</a>
+                            </c:when>
+                            <c:otherwise>
+                                <a href="${pageContext.request.contextPath}/courses/${course.id}/preview"
+                                   class="btn btn-primary">Изучить</a>
+                            </c:otherwise>
+                        </c:choose>
                     </div>
                 </div>
             </div>

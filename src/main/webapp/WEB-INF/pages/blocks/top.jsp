@@ -22,10 +22,12 @@
                 ectio
             </a>
             <div class="btn-group" role="group">
-                <a class="btn btn-outline-primary my-2 my-sm-0" href="${pageContext.request.contextPath}/profile">
+                <a class="btn btn-outline-primary my-2 my-sm-0"
+                   href="${pageContext.request.contextPath}/auth/registration">
                     <spring:message
                             code="top.teach"/></a>
-                <a class="btn btn-outline-primary my-2 my-sm-0" href="${pageContext.request.contextPath}/profile">
+                <a class="btn btn-outline-primary my-2 my-sm-0"
+                   href="${pageContext.request.contextPath}/auth/registration">
                     <spring:message
                             code="top.study"/></a>
             </div>

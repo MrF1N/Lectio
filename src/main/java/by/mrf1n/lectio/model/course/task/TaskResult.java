@@ -21,6 +21,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -29,7 +30,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class TaskResult {
+public class TaskResult implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id

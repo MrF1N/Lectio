@@ -18,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 
 @Entity
 @Table(name = "lectures")
@@ -25,7 +26,7 @@ import javax.persistence.Table;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Lecture {
+public class Lecture implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -35,7 +36,7 @@ public class Lecture {
     private String name;
     private Long sequenceNumber;
     private String description;
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
@@ -43,4 +44,33 @@ public class Lecture {
     private DocTypes type;
     private String fileUrl;
     private String binaryFile;
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        result = (result * PRIME) + super.hashCode();
+        if (this.id != null) {
+            result = (result * PRIME) + this.id.hashCode();
+        }
+        if (this.name != null) {
+            result = (result * PRIME) + this.name.hashCode();
+        }
+        if (this.description != null) {
+            result = (result * PRIME) + this.description.hashCode();
+        }
+        if (this.sequenceNumber != null) {
+            result = (result * PRIME) + this.sequenceNumber.hashCode();
+        }
+        if (this.fileUrl != null) {
+            result = (result * PRIME) + this.fileUrl.hashCode();
+        }
+        if (this.binaryFile != null) {
+            result = (result * PRIME) + this.binaryFile.hashCode();
+        }
+        if (this.type != null) {
+            result = (result * PRIME) + this.type.hashCode();
+        }
+        return result;
+    }
 }

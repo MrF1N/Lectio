@@ -18,6 +18,7 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import java.io.Serializable;
 import java.util.Set;
 
 @Entity
@@ -26,7 +27,7 @@ import java.util.Set;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class CourseResult {
+public class CourseResult implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -35,7 +36,7 @@ public class CourseResult {
 
     private String name;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
@@ -43,8 +44,7 @@ public class CourseResult {
     private Set<TestResult> testResults;
     @OneToMany(fetch = FetchType.EAGER, mappedBy = "courseResult")
     private Set<TaskResult> taskResults;
-    @OneToOne(optional = false)
-    @JoinColumn(name = "certificate_id", unique = true, nullable = false, updatable = false)
+    @OneToOne(fetch = FetchType.EAGER, mappedBy = "courseResult", cascade = CascadeType.ALL)
     private Certificate certificate;
 
 }

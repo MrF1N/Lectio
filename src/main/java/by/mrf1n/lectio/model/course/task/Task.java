@@ -18,6 +18,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.File;
+import java.io.Serializable;
 import java.util.List;
 
 @Entity
@@ -26,7 +27,7 @@ import java.util.List;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class Task {
+public class Task implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -46,4 +47,27 @@ public class Task {
 
     @Transient
     private List<File> files;
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        result = (result * PRIME) + super.hashCode();
+        if (this.id != null) {
+            result = (result * PRIME) + this.id.hashCode();
+        }
+        if (this.name != null) {
+            result = (result * PRIME) + this.name.hashCode();
+        }
+        if (this.description != null) {
+            result = (result * PRIME) + this.description.hashCode();
+        }
+        if (this.sequenceNumber != null) {
+            result = (result * PRIME) + this.sequenceNumber.hashCode();
+        }
+        if (this.comment != null) {
+            result = (result * PRIME) + this.comment.hashCode();
+        }
+        return result;
+    }
 }

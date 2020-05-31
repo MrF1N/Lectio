@@ -40,7 +40,8 @@ public class LectioWebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(
                         "/",
                         "/auth/**",
-                        "/resources/**").permitAll()
+                        "/resources/**",
+                        "/files/**").permitAll()
                 .antMatchers(
                         "/admin/**").hasRole("ADMIN")
                 .anyRequest().authenticated();

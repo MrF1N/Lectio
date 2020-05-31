@@ -55,13 +55,31 @@ public class Course implements Serializable {
             inverseJoinColumns = @JoinColumn(name = "teacher_id", referencedColumnName = "id"))
     private Set<User> teachers;
 
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Lecture> lectures;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Test> tests;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<Task> tasks;
-    @OneToMany(fetch = FetchType.EAGER, mappedBy = "course")
+    @OneToMany(mappedBy = "course", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private Set<CourseResult> results;
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        result = (result * PRIME) + super.hashCode();
+        if (this.id != null) {
+            result = (result * PRIME) + this.id.hashCode();
+        }
+        if (this.name != null) {
+            result = (result * PRIME) + this.name.hashCode();
+        }
+        if (this.description != null) {
+            result = (result * PRIME) + this.description.hashCode();
+        }
+        result = (result * PRIME) + (Boolean.valueOf(this.isActive)).hashCode();
+        return result;
+    }
 
 }

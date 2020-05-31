@@ -2,8 +2,10 @@ package by.mrf1n.lectio.controller;
 
 import by.mrf1n.lectio.model.User;
 import by.mrf1n.lectio.model.course.Course;
+import by.mrf1n.lectio.model.course.lecture.Lecture;
 import by.mrf1n.lectio.repository.UserRepository;
 import by.mrf1n.lectio.repository.coursse.CourseRepository;
+import by.mrf1n.lectio.repository.coursse.lecture.LectureRepository;
 import by.mrf1n.lectio.service.LectioUiService;
 import by.mrf1n.lectio.service.validation.LectioInputValidationService;
 import org.apache.logging.log4j.util.Strings;
@@ -30,16 +32,18 @@ public class CoursesController {
     private final LectioUiService lectioUiService;
     private final LectioInputValidationService inputValidationService;
     private final CourseRepository courseRepository;
+    private final LectureRepository lectureRepository;
     private final UserRepository userRepository;
 
     @Autowired
     public CoursesController(LectioUiService lectioUiService,
                              LectioInputValidationService inputValidationService,
                              CourseRepository courseRepository,
-                             UserRepository userRepository) {
+                             LectureRepository lectureRepository, UserRepository userRepository) {
         this.lectioUiService = lectioUiService;
         this.inputValidationService = inputValidationService;
         this.courseRepository = courseRepository;
+        this.lectureRepository = lectureRepository;
         this.userRepository = userRepository;
     }
 
@@ -118,6 +122,40 @@ public class CoursesController {
         if (course.isPresent()) {
             model.addAttribute("course", course.get());
             return "courses/preview";
+        }
+        return "redirect:/error";
+    }
+
+    @GetMapping("/{id}/join")
+    public String joinToCourse(Model model,
+                               @PathVariable Long id,
+                               Authentication authentication) {
+        lectioUiService.fillRolesModelByLogin(authentication.getName(), model);
+        Optional<Course> course = courseRepository.findById(id);
+        if (course.isPresent()) {
+            Course courseItem = course.get();
+            Optional<User> byLogin = userRepository.findByLogin(authentication.getName());
+            if (byLogin.isPresent()) {
+                courseItem.getStudents().add(byLogin.get());
+                courseRepository.save(courseItem);
+                model.addAttribute("course", courseItem);
+                model.addAttribute("course_page", "plan");
+                return "courses/course";
+            }
+        }
+        return "redirect:/error";
+    }
+
+    @GetMapping("/{id}/lecture/{lectureId}")
+    public String getLecturePage(Model model,
+                                 @PathVariable Long id,
+                                 @PathVariable Long lectureId,
+                                 Authentication authentication) {
+        lectioUiService.fillRolesModelByLogin(authentication.getName(), model);
+        Optional<Lecture> lecture = lectureRepository.findById(lectureId);
+        if (lecture.isPresent()) {
+            model.addAttribute("lecture", lecture.get());
+            return "lecture/lecture_view";
         }
         return "redirect:/error";
     }

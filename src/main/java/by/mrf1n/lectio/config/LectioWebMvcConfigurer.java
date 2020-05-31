@@ -16,6 +16,7 @@ public class LectioWebMvcConfigurer implements WebMvcConfigurer {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry.addResourceHandler("/resources/**").addResourceLocations("/resources/ocean/");
+        registry.addResourceHandler("/files/**").addResourceLocations("/resources/files/");
         registry.addResourceHandler("/pages/**").addResourceLocations("/WEB-INF/pages/");
     }
 
