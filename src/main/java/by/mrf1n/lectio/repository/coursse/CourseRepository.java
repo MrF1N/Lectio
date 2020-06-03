@@ -16,4 +16,8 @@ public interface CourseRepository extends JpaRepository<Course, Long> {
     List<Course> findCoursesLikeName(@Param("name") String name);
 
     List<Course> findAllByStudents(User student);
+
+    List<Course> findAllByTeachers(User teacher);
+
+    List<Course> findAllByCreator(User creator);
 }

@@ -1,3 +1,5 @@
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%--
   Created by IntelliJ IDEA.
   User: Grey
@@ -8,9 +10,74 @@
 <%@ page contentType="text/html;charset=UTF-8" %>
 <html>
 <head>
-    <title>Курс</title>
+    <title>Курсы</title>
 </head>
-<body>
-
+<body class="d-flex flex-column text-center">
+<jsp:include page="../blocks/top.jsp">
+    <jsp:param name="roles" value="${roles}"/>
+</jsp:include>
+<div class="container mb-auto mt-5">
+    <c:if test="${fn:contains(roles, 'STUDENT')}">
+        <div class="container mb-auto">
+            <h2>Изучаемые курсы</h2>
+            <div class="row mt-4 d-flex align-items-stretch row-cols-1 row-cols-md-3">
+                <c:forEach var="course" items="${study_courses}">
+                    <div class="col mb-4">
+                        <div class="card h-100">
+                            <div class="card-header text-left h-100">
+                                <h5 class="card-title">${course.name}</h5>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="${pageContext.request.contextPath}/courses/${course.id}"
+                                   class="btn btn-primary">Продолжить обучение</a>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </c:if>
+    <c:if test="${fn:contains(roles, 'TEACHER')}">
+        <div class="container mb-auto">
+            <h2>Преподаваемые курсы</h2>
+            <div class="row mt-4 d-flex align-items-stretch row-cols-1 row-cols-md-3">
+                <c:forEach var="course" items="${teach_courses}">
+                    <div class="col mb-4">
+                        <div class="card h-100">
+                            <div class="card-header text-left h-100">
+                                <h5 class="card-title">${course.name}</h5>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="${pageContext.request.contextPath}/courses/${course.id}"
+                                   class="btn btn-primary">Преподавать</a>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </c:if>
+    <c:if test="${fn:contains(roles, 'CREATOR')}">
+        <div class="container mb-auto">
+            <h2>Созданные курсы</h2>
+            <div class="row mt-4 d-flex align-items-stretch row-cols-1 row-cols-md-3">
+                <c:forEach var="course" items="${created_courses}">
+                    <div class="col mb-4">
+                        <div class="card h-100">
+                            <div class="card-header text-left h-100">
+                                <h5 class="card-title">${course.name}</h5>
+                            </div>
+                            <div class="card-footer bg-transparent">
+                                <a href="${pageContext.request.contextPath}/courses/${course.id}"
+                                   class="btn btn-primary">Управлять</a>
+                            </div>
+                        </div>
+                    </div>
+                </c:forEach>
+            </div>
+        </div>
+    </c:if>
+</div>
+<jsp:include page="../blocks/bottom.jsp"/>
 </body>
 </html>

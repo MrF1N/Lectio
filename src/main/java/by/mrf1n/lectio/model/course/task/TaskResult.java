@@ -21,7 +21,13 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
 import java.io.Serializable;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.List;
 
 @Entity
@@ -47,7 +53,7 @@ public class TaskResult implements Serializable {
     @JoinColumn(name = "student_id", nullable = false)
     private User student;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
-    @JoinColumn(name = "teacher_id", nullable = false)
+    @JoinColumn(name = "teacher_id")
     private User teacher;
     private Long rating;
     private String comment;
@@ -59,4 +65,45 @@ public class TaskResult implements Serializable {
     @Transient
     private List<File> files;
 
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        result = (result * PRIME) + super.hashCode();
+        if (this.id != null) {
+            result = (result * PRIME) + this.id.hashCode();
+        }
+        if (this.rating != null) {
+            result = (result * PRIME) + this.rating.hashCode();
+        }
+        if (this.comment != null) {
+            result = (result * PRIME) + this.comment.hashCode();
+        }
+        return result;
+    }
+
+    public void saveFiles() {
+        files.forEach(file -> {
+            Path newPath = Paths.get("E:\\Progs\\Diplom\\lectio-server\\src\\main\\webapp\\resources\\files\\task\\user_" + student.getId() + "\\task_" + task.getId() + "\\", file.getPath());
+            try {
+                Files.createDirectories(newPath);
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            File newFile = newPath.toFile();
+            try {
+                boolean isCreated = newFile.createNewFile();
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+            try (OutputStream os = new FileOutputStream(newFile)) {
+
+                Files.copy(file.toPath(), os);
+                filePaths.add(newPath.toString());
+
+            } catch (IOException ex) {
+                ex.printStackTrace();
+            }
+        });
+    }
 }

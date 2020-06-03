@@ -46,4 +46,21 @@ public class TestResult implements Serializable {
     private List<QuestionResult> results;
     private Long rating;
     private String comment;
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        result = (result * PRIME) + super.hashCode();
+        if (this.id != null) {
+            result = (result * PRIME) + this.id.hashCode();
+        }
+        if (this.rating != null) {
+            result = (result * PRIME) + this.rating.hashCode();
+        }
+        if (this.comment != null) {
+            result = (result * PRIME) + this.comment.hashCode();
+        }
+        return result;
+    }
 }

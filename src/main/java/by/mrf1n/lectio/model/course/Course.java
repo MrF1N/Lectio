@@ -82,4 +82,8 @@ public class Course implements Serializable {
         return result;
     }
 
+    public boolean isTestResultsExists(Long studentId) {
+        return tests.stream().anyMatch(test -> test.isExistsResultByStudentId(studentId));
+    }
+
 }

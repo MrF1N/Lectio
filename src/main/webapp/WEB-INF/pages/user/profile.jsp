@@ -37,12 +37,6 @@
 
     </div>
 </div>
-<%--<div class="container m-auto">--%>
-<%--    <h3>Краткая информация</h3>--%>
-<%--    <sec:authorize access="isAuthenticated()">--%>
-<%--        <p>Логин: ${user.login}</p>--%>
-<%--    </sec:authorize>--%>
-<%--</div>--%>
 <div class="container m-auto">
     <h3>Текущие курсы</h3>
     <div class="row mt-3 d-flex justify-content-center row-cols-1 row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-3">

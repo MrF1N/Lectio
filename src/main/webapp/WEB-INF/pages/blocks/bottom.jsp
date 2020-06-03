@@ -1,6 +1,5 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page contentType="text/html;charset=utf-8" %>
-<spring:url value="/resources" var="theme"/>
 
 <footer class="mastfoot py-3 bg-light">
     <div class="container text-center">

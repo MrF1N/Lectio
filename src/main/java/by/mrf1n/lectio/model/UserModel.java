@@ -18,4 +18,5 @@ public class UserModel implements Serializable {
     private boolean isStudent;
     private boolean isTeacher;
     private boolean isCreator;
+    private boolean isAdmin;
 }

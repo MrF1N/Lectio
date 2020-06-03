@@ -1,5 +1,6 @@
 package by.mrf1n.lectio.model.course;
 
+import by.mrf1n.lectio.model.User;
 import by.mrf1n.lectio.model.course.task.TaskResult;
 import by.mrf1n.lectio.model.course.test.TestResult;
 import lombok.AllArgsConstructor;
@@ -47,4 +48,21 @@ public class CourseResult implements Serializable {
     @OneToOne(fetch = FetchType.EAGER, mappedBy = "courseResult", cascade = CascadeType.ALL)
     private Certificate certificate;
 
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinColumn(name = "student_id", nullable = false)
+    private User student;
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        result = (result * PRIME) + super.hashCode();
+        if (this.id != null) {
+            result = (result * PRIME) + this.id.hashCode();
+        }
+        if (this.name != null) {
+            result = (result * PRIME) + this.name.hashCode();
+        }
+        return result;
+    }
 }

@@ -69,26 +69,23 @@ public class UserController {
     public String getMyCoursesPage(Model model,
                                    @PathVariable Long userId,
                                    Authentication authentication) {
-        model.addAttribute("certificates", courseResultRepository.findAll());
-//        Optional<User> authUser = userRepository.findByLogin(authentication.getName());
-//
-//        if (userId != null) {
-//            Optional<User> user = userRepository.findById(userId);
-//            if (authUser.isPresent()
-//                    && user.isPresent()
-//                    && (CollectionUtils.containsAny(authUser.get().getRoles(), Role.getPermittedViewAllUsers())
-//                    || Objects.equals(authUser.get().getId(), user.get().getId()))){
-//                model.addAttribute("roles", authUser.get().getRoles());
-//                model.addAttribute("login", authUser.get().getLogin());
-//                return "courses";
-//            }
-////        }
-//
-//        return "redirect:/";
-//        CourseResult result = CourseResult.builder().name("Основы защиты информации на предприятии").course(courseRepository.findById(13L).get()).build();
-//        result = courseResultRepository.save(result);
-//        Certificate cert = Certificate.builder().name("Основы защиты информации на предприятии").student(userRepository.findById(1L).get()).courseResult(result).build();
-//        cert = certificateRepository.save(cert);
-        return "courses/courses";
+        Optional<User> authUser = userRepository.findByLogin(authentication.getName());
+
+        if (userId != null) {
+            Optional<User> user = userRepository.findById(userId);
+            if (authUser.isPresent()
+                    && user.isPresent()
+                    && (CollectionUtils.containsAny(authUser.get().getRoles(), Role.getPermittedViewAllUsers())
+                    || Objects.equals(authUser.get().getId(), user.get().getId()))) {
+                lectioUiService.fillUserParamsModelByLogin(userId, authUser.get().getLogin(), model);
+                User curUser = user.get();
+                model.addAttribute("user", curUser);
+                model.addAttribute("study_courses", courseRepository.findAllByStudents(curUser));
+                model.addAttribute("teach_courses", courseRepository.findAllByTeachers(curUser));
+                model.addAttribute("created_courses", courseRepository.findAllByCreator(curUser));
+                return "courses/courses";
+            }
+        }
+        return "redirect:/error";
     }
 }
