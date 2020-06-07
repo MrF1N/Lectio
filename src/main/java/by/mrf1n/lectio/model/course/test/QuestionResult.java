@@ -40,4 +40,16 @@ public class QuestionResult implements Serializable {
     @JoinColumn(name = "student_id", nullable = false)
     private User student;
     private boolean isCorrect;
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        result = (result * PRIME) + super.hashCode();
+        if (this.id != null) {
+            result = (result * PRIME) + this.id.hashCode();
+        }
+        result = (result * PRIME) + (Boolean.valueOf(this.isCorrect)).hashCode();
+        return result;
+    }
 }

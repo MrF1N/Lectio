@@ -6,6 +6,9 @@ import by.mrf1n.lectio.model.course.CourseResult;
 import by.mrf1n.lectio.model.course.lecture.Lecture;
 import by.mrf1n.lectio.model.course.task.Task;
 import by.mrf1n.lectio.model.course.task.TaskResult;
+import by.mrf1n.lectio.model.course.test.Answer;
+import by.mrf1n.lectio.model.course.test.Question;
+import by.mrf1n.lectio.model.course.test.Test;
 import by.mrf1n.lectio.repository.UserRepository;
 import by.mrf1n.lectio.repository.coursse.CourseRepository;
 import by.mrf1n.lectio.repository.coursse.CourseResultRepository;
@@ -250,7 +253,7 @@ public class CoursesController {
         taskResult.setCourseResult(courseResult.orElse(new CourseResult()));
         taskResult.setStudent(user);
         taskResult.setTask(task.orElse(new Task()));
-        taskResult.saveFiles();
+//        taskResult.saveFiles();
         taskResultRepository.save(taskResult);
         taskResult = taskResultRepository.findAllByTaskIdAndStudentId(taskId, user.getId()).orElse(null);
         if (task.isPresent()) {
@@ -260,4 +263,209 @@ public class CoursesController {
         }
         return "redirect:/error";
     }
+
+    @GetMapping("/{id}/lecture/{lectureId}/manage")
+    public String getLectureManagePage(Model model,
+                                       @PathVariable Long id,
+                                       @PathVariable Long lectureId,
+                                       Authentication authentication) {
+        lectioUiService.fillRolesModelByLogin(authentication.getName(), model);
+        Optional<Lecture> lecture = lectureRepository.findById(lectureId);
+        if (lecture.isPresent()) {
+            model.addAttribute("lecture", lecture.get());
+            return "lecture/manage";
+        } else if (lectureId == 0) {
+            Lecture lecture1 = new Lecture();
+            lecture1.setCourse(courseRepository.getOne(id));
+            Lecture save = lectureRepository.save(lecture1);
+            model.addAttribute("lecture", save);
+            return "lecture/manage";
+        }
+        return "redirect:/error";
+    }
+
+    @PostMapping("/{id}/lecture/{lectureId}")
+    public String lectureAdd(Model model,
+                             @PathVariable Long id,
+                             @PathVariable Long lectureId,
+                             @ModelAttribute("lecture") Lecture lecture,
+                             Authentication authentication) {
+        lecture.setCourse(courseRepository.getOne(id));
+        if (lecture.getSequenceNumber() == null) {
+            lecture.setSequenceNumber(courseRepository.getOne(id).getLectures().size() + 1L);
+        }
+        Lecture save = lectureRepository.save(lecture);
+        if (save != null) {
+            return "redirect:/courses/" + id + "/lecture/" + save.getId() + "/manage";
+        }
+        return "redirect:/error";
+    }
+
+    @GetMapping("/{id}/lecture/{lectureId}/delete")
+    public String lectureDelete(Model model,
+                                @PathVariable Long id,
+                                @PathVariable Long lectureId,
+                                Authentication authentication) {
+        lectureRepository.deleteById(lectureId);
+        return "redirect:/courses/" + id + "/plan";
+    }
+
+    @GetMapping("/{id}/task/{taskId}/manage")
+    public String getTaskManagePage(Model model,
+                                    @PathVariable Long id,
+                                    @PathVariable Long taskId,
+                                    Authentication authentication) {
+        lectioUiService.fillRolesModelByLogin(authentication.getName(), model);
+        Optional<Task> task = taskRepository.findById(taskId);
+        Optional<User> student = userRepository.findByLogin(authentication.getName());
+        User user = student.orElse(new User());
+        Optional<TaskResult> taskResult = taskResultRepository.findAllByTaskIdAndStudentId(taskId, user.getId());
+        if (task.isPresent()) {
+            model.addAttribute("task", task.get());
+            model.addAttribute("taskResult", taskResult.orElse(new TaskResult()));
+            return "task/manage";
+        } else if (taskId == 0) {
+            Task task1 = new Task();
+            task1.setCourse(courseRepository.getOne(id));
+            Task save = taskRepository.save(task1);
+            model.addAttribute("task", save);
+            model.addAttribute("taskResult", taskResult.orElse(new TaskResult()));
+            return "task/manage";
+        }
+        return "redirect:/error";
+    }
+
+    @PostMapping("/{id}/task/{taskId}")
+    public String taskAdd(Model model,
+                          @PathVariable Long id,
+                          @PathVariable Long taskId,
+                          @ModelAttribute("task") Task task,
+                          Authentication authentication) {
+        task.setCourse(courseRepository.getOne(id));
+        if (task.getSequenceNumber() == null) {
+            task.setSequenceNumber(courseRepository.getOne(id).getTasks().size() + 1L);
+        }
+        Task save = taskRepository.save(task);
+        if (save != null) {
+            return "redirect:/courses/" + id + "/task/" + save.getId() + "/manage";
+        }
+        return "redirect:/error";
+    }
+
+    @GetMapping("/{id}/task/{taskId}/delete")
+    public String taskDelete(Model model,
+                             @PathVariable Long id,
+                             @PathVariable Long taskId,
+                             Authentication authentication) {
+        Task one = taskRepository.getOne(taskId);
+        taskRepository.delete(one);
+        return "redirect:/courses/" + id + "/plan";
+    }
+
+    @GetMapping("/{id}/test/{testId}/manage")
+    public String geTestManagePage(Model model,
+                                   @PathVariable Long id,
+                                   @PathVariable Long testId,
+                                   Authentication authentication) {
+        lectioUiService.fillRolesModelByLogin(authentication.getName(), model);
+        Optional<Test> test = testRepository.findById(testId);
+        if (test.isPresent()) {
+            model.addAttribute("test", test.get());
+            model.addAttribute("questionModel", new Question());
+            return "test/manage";
+        } else if (testId == 0) {
+            Test test1 = new Test();
+            test1.setCourse(courseRepository.getOne(id));
+            Test save = testRepository.save(test1);
+            model.addAttribute("test", save);
+            model.addAttribute("questionModel", new Question());
+            return "test/manage";
+        }
+        return "redirect:/error";
+    }
+
+    @PostMapping("/{id}/test/{testId}")
+    public String testAdd(Model model,
+                          @PathVariable Long id,
+                          @PathVariable Long testId,
+                          @ModelAttribute("test") Test test,
+                          Authentication authentication) {
+        test.setCourse(courseRepository.getOne(id));
+        if (test.getSequenceNumber() == null) {
+            test.setSequenceNumber(courseRepository.getOne(id).getTests().size() + 1L);
+        }
+        Test save = testRepository.save(test);
+        if (save != null) {
+            return "redirect:/courses/" + id + "/test/" + save.getId() + "/manage";
+        }
+        return "redirect:/error";
+    }
+
+    @GetMapping("/{id}/test/{testId}/delete")
+    public String testDelete(Model model,
+                             @PathVariable Long id,
+                             @PathVariable Long testId,
+                             Authentication authentication) {
+        Test one = testRepository.getOne(testId);
+        testRepository.delete(one);
+        return "redirect:/courses/" + id + "/plan";
+    }
+
+    @GetMapping("/{id}/test/{testId}/question/{questionId}/manage")
+    public String geQuestionManagePage(Model model,
+                                       @PathVariable Long id,
+                                       @PathVariable Long testId,
+                                       @PathVariable Long questionId,
+                                       Authentication authentication) {
+        lectioUiService.fillRolesModelByLogin(authentication.getName(), model);
+        Optional<Question> question = questionRepository.findById(questionId);
+        if (question.isPresent()) {
+            model.addAttribute("question", question.get());
+            model.addAttribute("answerModel", new Answer());
+            return "test/question_manage";
+        }
+        return "redirect:/error";
+    }
+
+    @PostMapping("/{id}/test/{testId}/question")
+    public String questionAdd(Model model,
+                              @PathVariable Long id,
+                              @PathVariable Long testId,
+                              @ModelAttribute("questionModel") Question question,
+                              Authentication authentication) {
+        question.setTest(testRepository.getOne(testId));
+        Question save = questionRepository.save(question);
+        if (save != null) {
+            return "redirect:/courses/" + id + "/test/" + testId + "/question/" + save.getId() + "/manage";
+        }
+        return "redirect:/error";
+    }
+
+    @PostMapping("/{id}/test/{testId}/question/{questionId}/answer")
+    public String answerAdd(Model model,
+                            @PathVariable Long id,
+                            @PathVariable Long testId,
+                            @PathVariable Long questionId,
+                            @ModelAttribute("answerModel") Answer answer,
+                            Authentication authentication) {
+        answer.setQuestion(questionRepository.getOne(questionId));
+        Answer save = answerRepository.save(answer);
+        if (save != null) {
+            return "redirect:/courses/" + id + "/test/" + testId + "/question/" + questionId + "/manage";
+        }
+        return "redirect:/error";
+    }
+
+    @GetMapping("/{id}/test/{testId}/question/{questionId}/answer/{answerId}/delete")
+    public String answerDelete(Model model,
+                               @PathVariable Long id,
+                               @PathVariable Long testId,
+                               @PathVariable Long questionId,
+                               @PathVariable Long answerId,
+                               Authentication authentication) {
+        Answer one = answerRepository.getOne(answerId);
+        answerRepository.delete(one);
+        return "redirect:/courses/" + id + "/test/" + testId + "/question/" + questionId + "/manage";
+    }
+
 }

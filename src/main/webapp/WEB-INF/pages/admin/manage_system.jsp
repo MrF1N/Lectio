@@ -269,10 +269,10 @@
             <c:forEach var="question" items="${questions}">
                 <tr>
                     <th scope="row">${question.id}</th>
-                    <td>${question.name}</td>
+                    <td>${question.questionName}</td>
                     <td>${question.sequenceNumber}</td>
                     <td>${question.test.name} (${question.test.id})</td>
-                    <td>${question.description}</td>
+                    <td>${question.questionDescription}</td>
                     <td>${question.correctAnswersNumber}</td>
                     <td class="text-center">
                         <div class="btn-group" role="group">
@@ -315,7 +315,7 @@
                 <tr>
                     <th scope="row">${answer.id}</th>
                     <td>${answer.name}</td>
-                    <td>${answer.question.name} (${answer.question.id})</td>
+                    <td>${answer.question.questionName} (${answer.question.id})</td>
                     <td>${answer.correct}</td>
                     <td class="text-center">
                         <div class="btn-group" role="group">

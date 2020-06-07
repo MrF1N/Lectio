@@ -11,6 +11,9 @@
     <jsp:param name="roles" value="${roles}"/>
 </jsp:include>
 <div class="container m-auto">
+    <div class="w-100 text-left">
+        <a href="${pageContext.request.contextPath}/courses/${task.course.id}/plan" class="btn btn-primary btn-lg ml-0">Назад</a>
+    </div>
     <form:form action="${taskUrl}" method="post" class="m-auto" modelAttribute="taskResult">
         <div class="mb-4">
             <h1>Задание "${task.name}"</h1>

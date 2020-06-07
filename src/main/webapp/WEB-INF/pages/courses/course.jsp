@@ -6,6 +6,18 @@
 <html>
 <head>
     <title>${course.name}</title>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.css">
+
+    <!-- Latest compiled and minified JavaScript -->
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/bootstrap-table.min.js"></script>
+    <!-- Latest compiled and minified Locales -->
+    <script src="https://unpkg.com/bootstrap-table@1.16.0/dist/locale/bootstrap-table-zh-CN.min.js"></script>
+    <script>
+        $(function () {
+            $("#sortable").sortable();
+        });
+    </script>
 </head>
 <body class="d-flex flex-column text-center">
 <jsp:include page="../blocks/top.jsp">
@@ -60,7 +72,7 @@
                     </ul>
                 </div>
                 <div class="col-8">
-                    <c:if test="${fn:contains(course.students, user)}">
+                    <c:if test="${fn:contains(course.students, user) && fn:contains(user.roles, 'STUDENT')}">
                         <div class="d-flex flex-column">
                             <div class="mt-4">
                                 <h3>Лекции</h3>
@@ -152,7 +164,7 @@
                             </div>
                         </div>
                     </c:if>
-                    <c:if test="${fn:contains(course.teachers, user)}">
+                    <c:if test="${fn:contains(course.teachers, user) && fn:contains(user.roles, 'TEACHER')}">
                         <div class="d-flex flex-column">
                             <div class="mt-4">
                                 <h3>Проверка практических заданий</h3>
@@ -216,14 +228,14 @@
                             </div>
                         </div>
                     </c:if>
-                    <c:if test="${course.creator.id == user.id}">
+                    <c:if test="${course.creator.id == user.id && fn:contains(user.roles, 'CREATOR')}">
                         <div class="d-flex flex-column">
                             <div class="mt-4">
                                 <h2>Редактирование курса</h2>
                                 <div class="mb-0 d-flex justify-content-between">
                                     <h3 class="text-left">Лекции</h3>
                                     <a class="btn btn-outline-primary h-auto mt-auto mb-auto"
-                                       href="${pageContext.request.contextPath}/auth/registration">
+                                       href="${pageContext.request.contextPath}/courses/${course.id}/lecture/0/manage">
                                         Добавить
                                     </a>
                                 </div>
@@ -248,11 +260,11 @@
                                                 <td class="text-right">
                                                     <div class="btn-group" role="group">
                                                         <a class="btn btn-outline-primary my-2 my-sm-0"
-                                                           href="${pageContext.request.contextPath}/auth/registration">
+                                                           href="${pageContext.request.contextPath}/courses/${course.id}/lecture/${lecture.id}/manage">
                                                             Измененить
                                                         </a>
                                                         <a class="btn btn-outline-primary my-2 my-sm-0"
-                                                           href="${pageContext.request.contextPath}/auth/registration">
+                                                           href="${pageContext.request.contextPath}/courses/${course.id}/lecture/${lecture.id}/delete">
                                                             Удалить
                                                         </a>
                                                     </div>
@@ -268,7 +280,7 @@
                                 <div class="mb-0 d-flex justify-content-between">
                                     <h3 class="text-left">Практические задания</h3>
                                     <a class="btn btn-outline-primary h-auto mt-auto mb-auto"
-                                       href="${pageContext.request.contextPath}/auth/registration">
+                                       href="${pageContext.request.contextPath}/courses/${course.id}/task/0/manage">
                                         Добавить
                                     </a>
                                 </div>
@@ -293,11 +305,11 @@
                                                 <td class="text-right">
                                                     <div class="btn-group" role="group">
                                                         <a class="btn btn-outline-primary my-2 my-sm-0"
-                                                           href="${pageContext.request.contextPath}/auth/registration">
+                                                           href="${pageContext.request.contextPath}/courses/${course.id}/task/${task.id}/manage">
                                                             Измененить
                                                         </a>
                                                         <a class="btn btn-outline-primary my-2 my-sm-0"
-                                                           href="${pageContext.request.contextPath}/auth/registration">
+                                                           href="${pageContext.request.contextPath}/courses/${course.id}/task/${task.id}/delete">
                                                             Удалить
                                                         </a>
                                                     </div>
@@ -312,7 +324,7 @@
                                 <div class="mb-0 d-flex justify-content-between">
                                     <h3 class="text-left">Проверка знаний</h3>
                                     <a class="btn btn-outline-primary h-auto mt-auto mb-auto"
-                                       href="${pageContext.request.contextPath}/auth/registration">
+                                       href="${pageContext.request.contextPath}/courses/${course.id}/test/0/manage">
                                         Добавить
                                     </a>
                                 </div>
@@ -330,16 +342,18 @@
                                             <tr>
                                                 <th scope="row">${test.sequenceNumber}</th>
                                                 <td class="col-1">
-                                                    <span>${test.name}</span>
+                                                    <a class="btn-link"
+                                                       href="${pageContext.request.contextPath}/courses/${course.id}/task/${test.id}">${test.name}
+                                                    </a>
                                                 </td>
                                                 <td class="text-right">
                                                     <div class="btn-group" role="group">
                                                         <a class="btn btn-outline-primary my-2 my-sm-0"
-                                                           href="${pageContext.request.contextPath}/auth/registration">
+                                                           href="${pageContext.request.contextPath}/courses/${course.id}/test/${test.id}/manage">
                                                             Измененить
                                                         </a>
                                                         <a class="btn btn-outline-primary my-2 my-sm-0"
-                                                           href="${pageContext.request.contextPath}/auth/registration">
+                                                           href="${pageContext.request.contextPath}/courses/${course.id}/test/${test.id}/delete">
                                                             Удалить
                                                         </a>
                                                     </div>

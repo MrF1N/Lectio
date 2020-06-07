@@ -39,4 +39,21 @@ public class Certificate implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "student_id", nullable = false)
     private User student;
+
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        result = (result * PRIME) + super.hashCode();
+        if (this.id != null) {
+            result = (result * PRIME) + this.id.hashCode();
+        }
+        if (this.name != null) {
+            result = (result * PRIME) + this.name.hashCode();
+        }
+        if (this.description != null) {
+            result = (result * PRIME) + this.description.hashCode();
+        }
+        return result;
+    }
 }

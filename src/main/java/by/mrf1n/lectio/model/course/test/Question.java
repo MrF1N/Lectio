@@ -31,9 +31,9 @@ public class Question implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    private String name;
+    private String questionName;
     private Long sequenceNumber;
-    private String description;
+    private String questionDescription;
     @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
     @JoinColumn(name = "test_id", nullable = false)
     private Test test;
@@ -44,4 +44,26 @@ public class Question implements Serializable {
 
     private Long correctAnswersNumber;
 
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        result = (result * PRIME) + super.hashCode();
+        if (this.id != null) {
+            result = (result * PRIME) + this.id.hashCode();
+        }
+        if (this.questionName != null) {
+            result = (result * PRIME) + this.questionName.hashCode();
+        }
+        if (this.sequenceNumber != null) {
+            result = (result * PRIME) + this.sequenceNumber.hashCode();
+        }
+        if (this.questionDescription != null) {
+            result = (result * PRIME) + this.questionDescription.hashCode();
+        }
+        if (this.correctAnswersNumber != null) {
+            result = (result * PRIME) + this.correctAnswersNumber.hashCode();
+        }
+        return result;
+    }
 }

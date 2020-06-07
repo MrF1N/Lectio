@@ -104,7 +104,7 @@
                 <div class="form-check form-control-lg">
                     <div class="float-lg-left">
                         <div class="custom-control custom-switch">
-                            <form:checkbox class="custom-control-input" id="switchAdmin" path="creator"/>
+                            <form:checkbox class="custom-control-input" id="switchAdmin" path="admin"/>
                             <label class="custom-control-label" for="switchAdmin">Администратор</label>
                         </div>
                     </div>

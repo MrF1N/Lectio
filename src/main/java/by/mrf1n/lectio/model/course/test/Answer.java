@@ -35,4 +35,26 @@ public class Answer implements Serializable {
     @JoinColumn(name = "question_id", nullable = false)
     private Question question;
 
+    @Override
+    public int hashCode() {
+        final int PRIME = 59;
+        int result = 1;
+        result = (result * PRIME) + super.hashCode();
+        if (this.id != null) {
+            result = (result * PRIME) + this.id.hashCode();
+        }
+        if (this.name != null) {
+            result = (result * PRIME) + this.name.hashCode();
+        }
+        result = (result * PRIME) + (Boolean.valueOf(this.isCorrect)).hashCode();
+        return result;
+    }
+
+    public boolean isCorrect() {
+        return isCorrect;
+    }
+
+    public void setCorrect(boolean correct) {
+        isCorrect = correct;
+    }
 }

@@ -36,7 +36,7 @@ public class Lecture implements Serializable {
     private String name;
     private Long sequenceNumber;
     private String description;
-    @ManyToOne(fetch = FetchType.LAZY, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @ManyToOne(fetch = FetchType.EAGER, cascade = {CascadeType.PERSIST})
     @JoinColumn(name = "course_id", nullable = false)
     private Course course;
 
@@ -72,5 +72,19 @@ public class Lecture implements Serializable {
             result = (result * PRIME) + this.type.hashCode();
         }
         return result;
+    }
+
+    @Override
+    public String toString() {
+        return "Lecture{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", sequenceNumber=" + sequenceNumber +
+                ", description='" + description + '\'' +
+                ", course=" + course +
+                ", type=" + type +
+                ", fileUrl='" + fileUrl + '\'' +
+                ", binaryFile='" + binaryFile + '\'' +
+                '}';
     }
 }
