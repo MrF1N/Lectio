@@ -44,7 +44,7 @@
                                     id="email"/>
                     </div>
                 </div>
-                <button class="btn btn-outline-dark btn-lg" type="submit">Сохранить</button>
+                <button class="btn btn-outline-dark btn-lg" type="submit">Подтвердить действие</button>
             </div>
         </form:form>
     </div>
