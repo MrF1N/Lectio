@@ -1,11 +1,11 @@
 <%@taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@page contentType="text/html;charset=utf-8" %>
 
-<footer class="mastfoot py-3 bg-light">
-    <div class="container text-center">
-        <span class="text-muted"><spring:message code="bottom.info"/></span>
-    </div>
-</footer>
+<%--<footer class="mastfoot py-3 bg-light">--%>
+<%--    <div class="container text-center">--%>
+<%--        <span class="text-muted"><spring:message code="bottom.info"/></span>--%>
+<%--    </div>--%>
+<%--</footer>--%>
 <div at-magnifier-wrapper="">
     <div class="at-theme-light">
         <div class="at-base notranslate" translate="no">

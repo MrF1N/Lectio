@@ -441,6 +441,17 @@ public class CoursesController {
         return "redirect:/error";
     }
 
+    @GetMapping("/{id}/test/{testId}/question/{questionId}/delete")
+    public String questionDelete(Model model,
+                                 @PathVariable Long id,
+                                 @PathVariable Long testId,
+                                 @PathVariable Long questionId,
+                                 Authentication authentication) {
+        Question one = questionRepository.getOne(questionId);
+        questionRepository.delete(one);
+        return "redirect:/courses/" + id + "/test/" + testId + "/manage";
+    }
+
     @PostMapping("/{id}/test/{testId}/question/{questionId}/answer")
     public String answerAdd(Model model,
                             @PathVariable Long id,

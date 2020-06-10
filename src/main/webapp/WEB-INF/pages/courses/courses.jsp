@@ -12,7 +12,7 @@
 <head>
     <title>Курсы</title>
 </head>
-<body class="d-flex flex-column text-center">
+<body class="d-flex flex-column">
 <jsp:include page="../blocks/top.jsp">
     <jsp:param name="roles" value="${roles}"/>
 </jsp:include>
@@ -59,17 +59,21 @@
     </c:if>
     <c:if test="${fn:contains(roles, 'CREATOR')}">
         <div class="container mb-auto">
-            <h2>Созданные курсы</h2>
+            <h1 class="text-left">Изучаемые курсы</h1>
             <div class="row mt-4 d-flex align-items-stretch row-cols-1 row-cols-md-3">
                 <c:forEach var="course" items="${created_courses}">
                     <div class="col mb-4">
                         <div class="card h-100">
-                            <div class="card-header text-left h-100">
+                            <div class="card-body">
                                 <h5 class="card-title">${course.name}</h5>
-                            </div>
-                            <div class="card-footer bg-transparent">
-                                <a href="${pageContext.request.contextPath}/courses/${course.id}"
-                                   class="btn btn-primary">Управлять</a>
+                                <p class="card-text">Some quick example text to build on the card title and make up the
+                                    bulk of the card's content.</p>
+                                <div class="d-flex justify-content-between">
+                                    <a href="${pageContext.request.contextPath}/courses/${course.id}"
+                                       class="card-link">Изучать</a>
+                                    <a href="${pageContext.request.contextPath}/courses/${course.id}"
+                                       class="card-link">Посмотреть результаты</a>
+                                </div>
                             </div>
                         </div>
                     </div>

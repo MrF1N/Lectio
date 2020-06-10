@@ -1,10 +1,10 @@
 body {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Heebo', sans-serif;
     margin: 0;
 }
 
 input {
-    font-family: 'Montserrat', sans-serif;
+    font-family: 'Heebo', sans-serif;
 }
 
 .bg {
@@ -101,4 +101,41 @@ span.red {
 
 .custom-file-input:lang(en) ~ .custom-file-label::after {
     content: "Просмотр";
+}
+
+.navbar-collapse {
+    flex-grow: 0 !important;
+}
+
+.bg-primary {
+    background-color: #aac8ff !important;
+}
+
+.navbar-light .navbar-nav .nav-link {
+    color: rgba(0, 0, 0, .9);
+}
+
+.btn-primary {
+    background-color: #627cff;
+    border-color: #627cff;
+}
+
+
+.btn-outline-primary {
+    color: #627cff;
+    border-color: #627cff;
+}
+
+.badge-primary {
+    background-color: #627cff;
+}
+
+.red {
+    /*color: rgba(255, 7, 17, 0.66);*/
+    color: #627cff;
+}
+
+.orange {
+    /*color: rgba(255, 142, 15, 0.76);*/
+    color: #627cff;
 }
